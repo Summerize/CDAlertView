@@ -276,8 +276,11 @@ open class CDAlertView: UIView {
     }
 
     public func show(_ completion: ((CDAlertView) -> Void)? = nil) {
-
-        UIApplication.shared.keyWindow?.addSubview(self)
+        show(intoView: UIApplication.shared.keyWindow, completion)
+    }
+    
+    public func show(intoView: UIView?, _ completion: ((CDAlertView) -> Void)? = nil) {
+        intoView?.addSubview(self)
         cd_alignToParent(with: 0)
         addSubview(backgroundView)
         backgroundView.cd_alignToParent(with: 0)
@@ -288,9 +291,10 @@ open class CDAlertView: UIView {
         createViews()
         loadActionButtons()
         popupViewInitialFrame = popupView.frame
-
+        
         completionBlock = completion
     }
+    
 
     // Instead of defining default `nil` parameter for `hide(animations: CDAlertAnimationBlock?, isPopupAnimated:Bool)` method
     // we define this method for Objective-C compatibility.
